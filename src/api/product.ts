@@ -10,6 +10,6 @@ const ProductInListSchema = v.object({
 });
 
 export const list = async () => {
-  const { data } = await request.get(ENDPOINT);
+  const { data } = await request.get<{ data: any[] }>(ENDPOINT);
   return data.data.map((el: unknown) => v.parse(ProductInListSchema, el));
 };

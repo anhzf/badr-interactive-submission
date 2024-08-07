@@ -34,13 +34,20 @@ const OrderCreateSchema = v.object({
   ),
 });
 
-export const list = async () => {
+interface OrderListOptions {
+  page?: number;
+  limit?: number;
+  customer_name?: string;
+  order_date?: string;
+}
+
+export const list = async (options?: OrderListOptions) => {
   const { data } = await request.get<{
     page: number;
     limit: number;
     total: number;
     list: any[];
-  }>(ENDPOINT);
+  }>(ENDPOINT, { params: options });
 
   return {
     ...data,
