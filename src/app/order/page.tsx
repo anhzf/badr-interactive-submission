@@ -1,6 +1,8 @@
 'use client';
 
 import { orderApi } from '@/api';
+import Button from '@/components/ui/button';
+import TextField from '@/components/ui/text-field';
 import { cn } from '@/utils/ui';
 import { Icon } from '@iconify/react';
 import { useQuery } from '@tanstack/react-query';
@@ -15,8 +17,6 @@ export default function OrderList() {
 
   return (
     <main className="flex min-h-screen flex-col gap-2 p-4">
-      {/* <pre className="whitespace-pre">{JSON.stringify(data, null, 2)}</pre> */}
-
       <div className="px-2 py-2">
         <h1 className="text-2xl text-center font-bold">
           Order Management
@@ -27,68 +27,49 @@ export default function OrderList() {
         <section className="flex container mx-auto bg-white flex-col gap-4 p-4 rounded shadow">
           <div className="flex justify-between gap-4">
             <form className="flex gap-4">
-              <div className="flex w-[28ch] flex-col">
-                <label htmlFor="orderFilter/customerName">
-                  Customer Name
-                </label>
-                <div className="group flex items-center gap-2 px-2 rounded border border-input has-[:focus]:ring ring-offset-2 transition-shadow">
-                  <input
-                    type="text"
-                    name="customerName"
-                    id="orderFilter/customerName"
-                    placeholder="Input customer name"
-                    className="shrink w-full px-2 py-2 border-none outline-none"
-                  />
-                  <Icon icon="material-symbols:search" className="shrink-0 size-6 text-primary" />
-                </div>
-              </div>
+              <TextField
+                label="Customer Name"
+                name="customerName"
+                id="orderFilter/customerName"
+                placeholder="Input customer name"
+                icon="material-symbols:search"
+                className="w-[28ch]"
+              />
 
-              <div className="flex w-[28ch] flex-col">
-                <label htmlFor="orderFilter/createDate">
-                  Create Date
-                </label>
-                <div className="group flex items-center gap-2 px-2 rounded border border-input has-[:focus]:ring ring-offset-2 transition-shadow">
-                  <input
-                    type="date"
-                    name="createDate"
-                    id="orderFilter/createDate"
-                    className="shrink w-full px-2 py-2 border-none outline-none"
-                  />
-                  {/* <Icon icon="material-symbols:date-range-rounded" className="size-6 text-primary" /> */}
-                </div>
-              </div>
+              <TextField
+                label="Create Date"
+                name="createDate"
+                type="date"
+                id="orderFilter/createDate"
+                className="w-[28ch]"
+              />
             </form>
 
             <div className="flex items-end gap-4">
-              <Link href="/order/add" className="flex h-10 bg-secondary hover:bg-secondary/95 active:bg-secondary/90 text-on-secondary justify-center items-center px-4 py-2 rounded focus:ring ring-offset-2 transition-shadow">
-                <span className="font-bold">
-                  Add New Order
-                </span>
-              </Link>
+              <Button as={Link} href="/order/add" variant="secondary">
+                Add New Order
+              </Button>
             </div>
           </div>
 
           <table>
             <thead>
               <tr className="border">
-                <th className="h-[3.75rem] text-primary text-left font-bold px-4 py-1">
-                  Order Id
-                </th>
-                <th className="h-[3.75rem] text-primary text-left font-bold px-4 py-1">
-                  Customer
-                </th>
-                <th className="h-[3.75rem] text-primary text-left font-bold px-4 py-1">
-                  Total Products
-                </th>
-                <th className="h-[3.75rem] text-primary text-left font-bold px-4 py-1">
-                  Total Price
-                </th>
-                <th className="h-[3.75rem] text-primary text-left font-bold px-4 py-1">
-                  Order Date
-                </th>
-                <th className="h-[3.75rem] text-primary text-left font-bold px-4 py-1">
-                  Action
-                </th>
+                {[
+                  'Order Id',
+                  'Customer',
+                  'Total Products',
+                  'Total Price',
+                  'Order Date',
+                  'Action',
+                ].map((col) => (
+                  <th
+                    key={col}
+                    className="h-14 text-primary text-left font-bold px-4 py-1"
+                  >
+                    {col}
+                  </th>
+                ))}
               </tr>
             </thead>
 

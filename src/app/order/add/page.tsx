@@ -5,6 +5,7 @@ import { useToaster } from '@/components/toaster';
 import Button from '@/components/ui/button';
 import Select from '@/components/ui/select';
 import TextField from '@/components/ui/text-field';
+import { currencyFormatter } from '@/utils/format';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useMemo } from 'react';
@@ -17,8 +18,6 @@ interface Inputs {
     quantity: number;
   }[];
 }
-
-const currencyFormatter = new Intl.NumberFormat('id', { style: 'currency', currency: 'IDR' });
 
 const PRODUCT_PLACEHOLDER = { id: '' as any, quantity: 1 };
 
