@@ -14,15 +14,21 @@ const config: Config = {
       },
       colors: {
         primary: {
-          bg: '#052A49',
-          onBg: '#FFFFFF',
-          text: '#002D40',
-          bgVariant: '#084577',
+          DEFAULT: '#052A49',
+          variant: '#084577',
         },
-        secondary: '#1BA8DF',
+        secondary: {
+          DEFAULT: '#1BA8DF',
+        },
+        background: '#F1F4F6',
         outline: '#828282',
+        on: {
+          primary: {
+            DEFAULT: '#FFFFFF',
+          },
+        },
         muted: {
-          bg: '#d6dce1',
+          DEFAULT: '#d6dce1',
           text: '#E0E0E0',
         },
       },
