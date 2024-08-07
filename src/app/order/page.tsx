@@ -24,7 +24,7 @@ export default function OrderList() {
       </div>
 
       <div className="self-stretch flex flex-col p-2">
-        <section className="flex w-full bg-white flex-col gap-4 p-4 rounded shadow">
+        <section className="flex container mx-auto bg-white flex-col gap-4 p-4 rounded shadow">
           <div className="flex justify-between gap-4">
             <form className="flex gap-4">
               <div className="flex w-[28ch] flex-col">

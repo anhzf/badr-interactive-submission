@@ -22,6 +22,13 @@ const config: Config = {
         },
         error: {
           DEFAULT: '#FF0000',
+          bg: '#EB5757',
+          darken: '#C41717',
+        },
+        success: {
+          DEFAULT: '#00FF00',
+          bg: '#27AE60',
+          darken: '#155C33',
         },
         background: '#F1F4F6',
         outline: '#828282',
@@ -41,6 +48,8 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-animate'),
+  ],
 };
 export default config;

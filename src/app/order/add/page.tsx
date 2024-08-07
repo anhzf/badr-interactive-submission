@@ -1,6 +1,7 @@
 'use client';
 
 import { productApi } from '@/api';
+import { useToaster } from '@/components/toaster';
 import Button from '@/components/ui/button';
 import Select from '@/components/ui/select';
 import TextField from '@/components/ui/text-field';
@@ -27,6 +28,7 @@ export default function OrderAdd() {
     queryFn: () => productApi.list(),
     placeholderData: [],
   });
+  const toast = useToaster();
   const { control, register, handleSubmit, watch } = useForm<Inputs>({
     values: {
       customerName: '',
