@@ -1,2 +1,2 @@
-export * as product from './product';
-export * as order from './order';
+export * as productApi from './product';
+export * as orderApi from './order';

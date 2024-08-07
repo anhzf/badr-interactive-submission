@@ -2,6 +2,12 @@ import { QueryClient, defaultShouldDehydrateQuery, isServer, } from '@tanstack/r
 
 const createQueryClient = () => new QueryClient({
   defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+      refetchOnMount: true,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+    },
     dehydrate: {
       // include pending queries in dehydration
       shouldDehydrateQuery: (query) =>

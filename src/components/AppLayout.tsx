@@ -12,7 +12,7 @@ import type { ReactNode } from 'react';
 const MENUS = [
   {
     title: 'Order Management',
-    href: '/',
+    href: '/order',
     icon: 'material-symbols:assignment',
   },
 ];
@@ -44,7 +44,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
         </header>
 
         <div className="flex max-h-full">
-          <nav className="sticky top-16 bottom-0 w-60 h-[calc(100vh-theme(size.16))] flex bg-primary text-on-primary flex-col">
+          <nav className="sticky top-16 bottom-0 w-60 h-[calc(100vh-theme(size.16))] flex bg-primary text-on-primary flex-col shadow-sm">
             <ul className="flex flex-col py-6">
               {MENUS.map((menu) => (
                 <li key={menu.href}>

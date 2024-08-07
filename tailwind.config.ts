@@ -20,16 +20,23 @@ const config: Config = {
         secondary: {
           DEFAULT: '#1BA8DF',
         },
+        error: {
+          DEFAULT: '#FF0000',
+        },
         background: '#F1F4F6',
         outline: '#828282',
+        input: '#E0E0E0',
         on: {
           primary: {
+            DEFAULT: '#FFFFFF',
+          },
+          secondary: {
             DEFAULT: '#FFFFFF',
           },
         },
         muted: {
           DEFAULT: '#d6dce1',
-          text: '#E0E0E0',
+          text: '#828282',
         },
       },
     },
