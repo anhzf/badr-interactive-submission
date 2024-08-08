@@ -1,6 +1,7 @@
 'use client';
 
 import { orderApi } from '@/api';
+import { useLoadingOverlay } from '@/components/loading-overlay';
 import { useToaster } from '@/components/toaster';
 import Button from '@/components/ui/button';
 import Select from '@/components/ui/select';
@@ -9,7 +10,6 @@ import { cn } from '@/utils/ui';
 import { Icon } from '@iconify/react';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import type { Fragment } from 'react';
 
 const PAGINATION_MAX_BUTTONS = 3;
 
@@ -25,6 +25,7 @@ export default function OrderListPage({ searchParams }: PageProps) {
   });
 
   const toast = useToaster();
+  const loading = useLoadingOverlay();
 
   const currentPage = data?.page ?? 1;
   const maxPage = Math.ceil((data?.total ?? 1) / (data?.limit ?? 10));
@@ -35,7 +36,7 @@ export default function OrderListPage({ searchParams }: PageProps) {
     const order = data?.list.find((el) => el.id === orderId);
     if (confirm(`Are you sure you want to delete the ${order?.customer_name} order?`)) {
       try {
-        await orderApi.destroy(orderId);
+        await loading(orderApi.destroy(orderId));
         refetch();
         toast({ message: `${order?.customer_name} order deleted`, type: 'success' });
       } catch (err) {

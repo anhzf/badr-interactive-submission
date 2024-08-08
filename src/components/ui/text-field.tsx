@@ -16,6 +16,7 @@ export default forwardRef<HTMLInputElement, TextFieldProps>(function TextField({
   icon,
   className,
   required,
+  children,
   ...inputProps
 }, ref) {
   return (
@@ -31,6 +32,7 @@ export default forwardRef<HTMLInputElement, TextFieldProps>(function TextField({
           id={id}
           className="shrink w-full px-2 py-2 border-none outline-none bg-transparent placeholder:text-muted-text"
         />
+        {children}
         {icon && (
           <Icon icon={icon} className="shrink-0 size-6 text-primary" />
         )}

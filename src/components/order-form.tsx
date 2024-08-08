@@ -58,7 +58,7 @@ export default function OrderForm({ value, action }: OrderFormProps) {
   const onFormSubmit: SubmitHandler<OrderFormInputs> = (data) => {
     startTransition(async () => {
       try {
-        await Promise.resolve(action?.(data))
+        Promise.resolve(action?.(data));
         toast({ message: 'Your data has been successfully saved.', type: 'success' });
       } catch (err) {
         console.error(err);
