@@ -1,9 +1,9 @@
 import { cn } from '@/utils/ui';
 import { Icon } from '@iconify/react';
-import { forwardRef, type HTMLAttributes } from 'react';
+import { forwardRef, type InputHTMLAttributes } from 'react';
 
-interface SelectProps extends HTMLAttributes<HTMLSelectElement> {
-  label: string;
+interface SelectProps extends InputHTMLAttributes<HTMLSelectElement> {
+  label?: string;
   name: string;
   options: Record<string, string>;
   placeholder?: string;
@@ -24,9 +24,11 @@ export default forwardRef<HTMLSelectElement, SelectProps>(function Select({
 }, ref) {
   return (
     <fieldset className={cn('flex flex-col', className)}>
-      <label htmlFor={id}>
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
+      {label && (
+        <label htmlFor={id}>
+          {label} {required && <span className="text-red-500">*</span>}
+        </label>
+      )}
       <div className="flex has-[select:disabled]:bg-muted items-center gap-2 px-2 rounded border border-input has-[:focus]:ring ring-offset-2 transition-shadow">
         <select
           {...inputProps}
