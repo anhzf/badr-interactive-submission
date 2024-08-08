@@ -74,7 +74,7 @@ export default function OrderForm({ value, action }: OrderFormProps) {
         id="newOrder/customerName"
         placeholder="Input customer name"
         required
-        {...register('customerName', { required: true })}
+        {...register('customerName', { required: true, disabled: value?.customerName !== undefined })}
         className="w-1/2"
       />
 
