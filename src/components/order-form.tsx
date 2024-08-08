@@ -29,7 +29,7 @@ const PRODUCT_PLACEHOLDER = { id: '' as any, quantity: 1 };
 export default function OrderForm({ value, action }: OrderFormProps) {
   const [isPending, startTransition] = useTransition();
 
-  const { data: productOpts } = useQuery({
+  const { data: productOpts, isFetching: isProductOptsLoading } = useQuery({
     queryKey: ['products'],
     queryFn: () => productApi.list(),
     placeholderData: [],
@@ -93,6 +93,7 @@ export default function OrderForm({ value, action }: OrderFormProps) {
               placeholder="Select product name"
               options={Object.fromEntries(productOpts?.map((product) => [product.id, product.name]) ?? [])}
               required
+              disabled={isProductOptsLoading}
               {...register(`products.${i}.id`, { required: true, valueAsNumber: true })}
               className="w-1/2"
             />
