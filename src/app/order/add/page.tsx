@@ -1,9 +1,20 @@
-import OrderForm from '@/components/order-form';
+import { orderApi } from '@/api';
+import OrderForm, { type OrderFormInputs } from '@/components/order-form';
+import { redirect } from 'next/navigation';
 
 export default function OrderAddPage() {
-  const action = async () => {
+  const action = async (data: OrderFormInputs) => {
     'use server';
-    throw new Error("Not implemented");
+
+    await orderApi.create({
+      customer_name: data.customerName,
+      products: data.products.map((item) => ({
+        product_id: item.id,
+        quantity: item.quantity,
+      })),
+    });
+
+    return redirect('/order');
   };
 
   return (

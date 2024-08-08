@@ -67,16 +67,16 @@ export const get = async (id: string) => {
 
 export const create = async (data: v.InferInput<typeof OrderCreateSchema>) => {
   const payload = v.parse(OrderCreateSchema, data);
-  const { data: { status } } = await request.post<{ status: boolean }>(ENDPOINT, payload);
+  const { data: { success: status } } = await request.post<{ success: boolean }>(ENDPOINT.replace('{orderId}', ''), payload);
 
   if (!status) {
     throw new Error('Failed to create order');
   }
 };
 
-export const edit = async (id: string, data: v.InferInput<typeof OrderCreateSchema>) => {
+export const update = async (id: string, data: v.InferInput<typeof OrderCreateSchema>) => {
   const payload = v.parse(OrderCreateSchema, data);
-  const { data: { status } } = await request.put<{ status: boolean }>(ENDPOINT.replace('{orderId}', id), payload);
+  const { data: { success: status } } = await request.put<{ success: boolean }>(ENDPOINT.replace('{orderId}', id), payload);
 
   if (!status) {
     throw new Error('Failed to edit order');
@@ -84,7 +84,7 @@ export const edit = async (id: string, data: v.InferInput<typeof OrderCreateSche
 };
 
 export const destroy = async (id: string) => {
-  const { data: { status } } = await request.delete<{ status: boolean }>(ENDPOINT.replace('{orderId}', id));
+  const { data: { success: status } } = await request.delete<{ success: boolean }>(ENDPOINT.replace('{orderId}', id));
 
   if (!status) {
     throw new Error('Failed to delete order');

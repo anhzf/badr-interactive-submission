@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { useMemo, useTransition } from 'react';
 import { useFieldArray, useForm, type SubmitHandler } from 'react-hook-form';
 
-interface Inputs {
+export interface OrderFormInputs {
   customerName: string;
   products: {
     id: number;
@@ -20,8 +20,8 @@ interface Inputs {
 }
 
 interface OrderFormProps {
-  value?: Inputs;
-  action?: (data: Inputs) => void | Promise<void>;
+  value?: OrderFormInputs;
+  action?: (data: OrderFormInputs) => void | Promise<void>;
 }
 
 const PRODUCT_PLACEHOLDER = { id: '' as any, quantity: 1 };
@@ -37,7 +37,7 @@ export default function OrderForm({ value, action }: OrderFormProps) {
 
   const toast = useToaster();
 
-  const { control, register, handleSubmit, watch } = useForm<Inputs>({
+  const { control, register, handleSubmit, watch } = useForm<OrderFormInputs>({
     values: value ?? {
       customerName: '',
       products: [PRODUCT_PLACEHOLDER],
@@ -55,7 +55,7 @@ export default function OrderForm({ value, action }: OrderFormProps) {
     [products, productsPrices],
   );
 
-  const onFormSubmit: SubmitHandler<Inputs> = (data) => {
+  const onFormSubmit: SubmitHandler<OrderFormInputs> = (data) => {
     startTransition(async () => {
       try {
         await Promise.resolve(action?.(data))
@@ -112,7 +112,7 @@ export default function OrderForm({ value, action }: OrderFormProps) {
               id="newOrder/productQuantity"
               placeholder="Input quantity"
               required
-              {...register(`products.${i}.quantity`, { required: true, min: 1 })}
+              {...register(`products.${i}.quantity`, { required: true, min: 1, valueAsNumber: true })}
               className="w-1/2"
             />
             <TextField

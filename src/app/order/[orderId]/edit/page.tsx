@@ -1,12 +1,22 @@
 import { orderApi } from '@/api';
-import OrderForm from '@/components/order-form';
+import OrderForm, { type OrderFormInputs } from '@/components/order-form';
+import { redirect } from 'next/navigation';
 
 export default async function OrderEditPage({ params }: { params: { orderId: string } }) {
   const order = await orderApi.get(params.orderId);
 
-  const action = async (data: any) => {
+  const action = async (data: OrderFormInputs) => {
     'use server';
-    throw new Error('Not implemented');
+
+    await orderApi.update(params.orderId, {
+      customer_name: data.customerName,
+      products: data.products.map((item) => ({
+        product_id: item.id,
+        quantity: item.quantity,
+      })),
+    });
+
+    return redirect('/order');
   };
 
   return (
