@@ -1,12 +1,12 @@
 import { orderApi } from '@/api';
 import { currencyFormatter } from '@/utils/format';
 
-export default async function OrderView({ params }: { params: { orderId: string } }) {
+export default async function OrderViewPage({ params }: { params: { orderId: string } }) {
   const data = await orderApi.get(params.orderId);
   const totalPrice = data.products.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
   return (
-    <>
+    <section className="flex container mx-auto bg-white flex-col gap-4 p-4 rounded shadow">
       {Object.entries({
         'Order ID': data.order_id,
         'Customer Name': data.customer_name,
@@ -61,6 +61,6 @@ export default async function OrderView({ params }: { params: { orderId: string 
       <hr className="bg-outline" />
 
       <div className="h-[10vh]" />
-    </>
+    </section>
   );
 }

@@ -47,7 +47,7 @@ export default function Toaster() {
   const { queue: toasts } = useContext(ToastContext);
 
   return (
-    <div className="absolute top-4 right-4 h-min flex flex-col gap-2 overflow-hidden">
+    <div className="fixed top-20 right-4 h-min flex flex-col gap-2 overflow-hidden">
       {Object.values(toasts).map((toast, i) => (
         <div key={i} className={cn(
           'p-4 rounded shadow-md border-l-4 animate-in slide-in-from-right fade-in duration-500',

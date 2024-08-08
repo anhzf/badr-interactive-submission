@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 
 export default function OrderViewLayout({ children }: { children: ReactNode }) {
-
   return (
     <main className="flex min-h-screen flex-col gap-2 p-4">
       <div className="px-2 py-2">
@@ -11,9 +10,7 @@ export default function OrderViewLayout({ children }: { children: ReactNode }) {
       </div>
 
       <div className="self-stretch flex flex-col p-2">
-        <section className="flex container mx-auto bg-white flex-col gap-4 p-4 rounded shadow">
-          {children}
-        </section>
+        {children}
       </div>
     </main>
   );
