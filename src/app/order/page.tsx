@@ -1,6 +1,7 @@
 'use client';
 
 import { orderApi } from '@/api';
+import { useToaster } from '@/components/toaster';
 import Button from '@/components/ui/button';
 import Select from '@/components/ui/select';
 import TextField from '@/components/ui/text-field';
@@ -17,15 +18,31 @@ interface PageProps {
 }
 
 export default function OrderListPage({ searchParams }: PageProps) {
-  const { data, isFetching: isLoading } = useQuery({
+  const { data, isFetching: isLoading, refetch } = useQuery({
     queryKey: ['orders', searchParams],
     queryFn: () => orderApi.list(searchParams),
     placeholderData: { list: [], total: 0, page: 1, limit: 10 },
   });
+
+  const toast = useToaster();
+
   const currentPage = data?.page ?? 1;
   const maxPage = Math.ceil((data?.total ?? 1) / (data?.limit ?? 10));
   const previousPage = Math.max(0, currentPage - 1);
   const nextPage = Math.min(maxPage, currentPage + 1);
+
+  const onRemoveClick = async (orderId: string) => {
+    const order = data?.list.find((el) => el.id === orderId);
+    if (confirm(`Are you sure you want to delete the ${order?.customer_name} order?`)) {
+      try {
+        await orderApi.destroy(orderId);
+        refetch();
+        toast({ message: `${order?.customer_name} order deleted`, type: 'success' });
+      } catch (err) {
+        toast({ message: String(err), type: 'error' });
+      }
+    }
+  }
 
   return (
     <main className="flex min-h-screen flex-col gap-2 p-4">
@@ -92,13 +109,13 @@ export default function OrderListPage({ searchParams }: PageProps) {
 
             <tbody>
               {isLoading
-                ? (
-                  <tr>
+                ? Array.from({ length: 5 }, (_, i) => (
+                  <tr key={i} className="border">
                     <td colSpan={6} className="h-14 text-primary px-4 py-1 text-center">
                       Loading...
                     </td>
                   </tr>
-                ) : data?.list.map((order) => (
+                )) : data?.list.map((order) => (
                   <tr
                     key={order.id}
                     className="border"
@@ -134,6 +151,7 @@ export default function OrderListPage({ searchParams }: PageProps) {
                       <button
                         type="button"
                         className="size-14 flex hover:bg-error/5 active:bg-error/10 justify-center items-center focus:rounded focus:ring ring-offset-2 transition"
+                        onClick={() => onRemoveClick(order.id)}
                       >
                         <Icon icon="material-symbols:delete-outline-rounded" className="shrink-0 text-error" />
                       </button>

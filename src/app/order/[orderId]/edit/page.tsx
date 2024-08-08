@@ -7,6 +7,7 @@ export default async function OrderEditPage({ params }: { params: { orderId: str
 
   const action = async (data: OrderFormInputs) => {
     'use server';
+    console.log(data);
 
     await orderApi.update(params.orderId, {
       customer_name: data.customerName,
